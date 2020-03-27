@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8" />
+    <title>FILL IN FORM</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/form.css}" />
+</head>
+
+
+<body>
+
+    <form method="post" th:object="${person}" th:action="@{/public/view/result}">
+        <div>
+            <fieldset>
+                <legend>Personal Information</legend>
+    
+                <div>
+                    <div>
+                        <div>
+                            <label for="name">Name</label>
+                        </div>
+                        <div>
+                            <input type="text" id="name" name="name" placeholder="Name..."  th:field="*{name}"/>
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <label for="email">Email</label>
+                        </div>
+                        <div>
+                            <input type="email" id="email" name="email" placeholder="Email..."  th:field="*{email}"/>
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <label for="mobile">Mobile</label>
+                        </div>
+                        <div>
+                            <input type="tel" id="mobile" name="mobile" placeholder="Mobile..." th:field="*{mobile}"/>
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <label for="birth">Birthday</label>
+                        </div>
+                        <div>
+                            <input type="date" id="birth" th:field="*{birthday}">
+                        </div>
+                    </div>
+    
+                    <div>
+                        <div>
+                            <label for="time">Local time</label>
+                        </div>
+                        <div>
+                            <input type="time" id="time" th:field="*{time}">
+                        </div>
+    
+    
+                    </div>
+    
+                    <div>
+                        <div>
+                            <label for="month">Month</label>
+                        </div>
+                        <div>
+                            <input type="month" id="month" th:field="*{month}"/>
+                        </div>
+    
+    
+                    </div>
+    
+                    <div>
+                        <div>
+                            <label for="week">Week</label>
+                        </div>
+                        <div>
+                            <input type="week" id="week" th:field="*{week}">
+                        </div>
+    
+    
+                    </div>
+    
+                    <div>
+                        <div>
+                            <label for="gender">Gender</label>
+                        </div>
+                        <div th:each="value : ${T (com.tech.developer.domain.Gender).values()}">
+                            <input type="radio" th:id="${value.ordinal()}" name="gender"  th:value="${value}" th:field="*{gender}"/>
+                            <label th:for="${value.ordinal()}" th:text="${value}"></label>                           
+                        </div>    
+                    </div>
+                    <div>
+                        <div>
+                            <label for="pro">Which Technologies do like more</label>
+                        </div>
+                        <div th:each="value : ${T(com.tech.developer.domain.Tech).values()}">                         
+                            <input type="checkbox" th:id="${value.ordinal()}" name="pro" th:value="${value}" th:field="*{tech}">
+                            <label th:for="${value.ordinal()}" th:text="${value.tag}"></label>         
+                        </div>
+                    </div>
+                    <div>
+                        <div>
+                            <label for="color">Favorite Color</label>
+                        </div>
+                        <div>
+                            <input type="color" id="color"  th:field="*{color}"/>
+                        </div>
+                    </div>
+    
+                    <div>
+                        <div>
+                            <label for="password">Password</label>
+                        </div>
+                        <div>
+                            <input type="password" id="password" th:field="*{password}">
+                        </div>
+                    </div>
+    
+                    <div>
+                        <div>
+                            <label for="level">Level of knowledge(between 0 and 10)</label>
+                        </div>
+                        <div>
+                            <input type="range" id="level" name="level" min="1" max="10"  th:field="*{range}">
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+         <div>
+       		 <input type="submit" value="Send"/>
+   		 </div>
+    </form>   
+    <div>
+        <h3>Result</h3>
+
+        <table>
+            <tr>
+               <th>Name</th>
+               <th>Email</th>
+               <th>Mobile</th>
+               <th>Birth Day</th>
+               <th>Local Time</th>
+               <th>Month</th>
+               <th>Weeek</th>
+               <th>Gender</th>
+               <th>Tech</th>
+               <th>Color</th>
+               <th>Password</th>
+               <th>Level</th>
+            </tr>
+            <tr th:each="p : ${people}">
+                <td th:text="${p.name}"></td>
+                <td th:text="${p.email}"></td>
+                <td th:text="${p.mobile}"></td>
+                <td th:text="${p.birthday}"></td>
+                <td th:text="${p.time}"></td>
+                <td th:text="${p.month}"></td>
+                <td th:text="${p.week}"></td>
+                <td th:text="${p.gender}"></td>
+                <td>
+                	<ul th:each="t : ${p.tech}">
+                		<li th:text="${t}"></li>
+                	</ul>
+                </td>
+                <td th:text="${p.color}"></td>
+                <td th:text="${p.password}"></td>
+                <td th:text="${p.range}"></td>  
+            </tr>      
+        </table>
+
+    </div>
+
+</body>
+
+</html>
